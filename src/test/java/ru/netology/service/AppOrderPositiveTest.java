@@ -26,7 +26,7 @@ public class AppOrderPositiveTest {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(options);
         driver.get("http://localhost:9999/");
     }
     @AfterEach
@@ -37,17 +37,13 @@ public class AppOrderPositiveTest {
     @Test
     void testPositiveAll() throws InterruptedException {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Жужа Мягкие-Лапки");
-        Thread.sleep(3000);
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+78005553535");
-        Thread.sleep(3000);
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
-        Thread.sleep(3000);
         driver.findElement(By.cssSelector("button")).click();
         assertEquals(
                 "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.",
                 driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText().trim()
         );
-        Thread.sleep(3000);
 
     }
 }
